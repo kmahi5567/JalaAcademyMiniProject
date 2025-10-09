@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h2 {
+            margin: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        a.btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 2px;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a.btn:hover {
+            background: #218838;
+        }
+        .delete-btn {
+            background: #dc3545;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+    <h2>Student Dashboard</h2>
+    <div class="nav-links">
+        <a href="#">Profile</a>
+        <a th:href="@{/student/list}">Student Details</a>
+        <a href="#">More</a>
+        <a href="#">Settings</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <h3>Student List</h3>
+    <a th:href="@{/student/form}" class="btn">Add Student</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.course}"></td>
+            <td>
+                <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn">Edit</a>
+                <a th:href="@{/student/delete/{id}(id=${student.id})}" class="btn delete-btn">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
+
